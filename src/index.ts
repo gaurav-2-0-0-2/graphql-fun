@@ -1,37 +1,11 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import {readFileSync} from "fs";
+import {resolvers} from "../src/resolvers/index"
 
- const resolvers = {
-   Query: {
-     books: () => books,
-   },
- };
 
- export const books = [
-   {
-     title: "The Awakening",
-     author: "Mr. Joe",
-   },
-   {
-     title: "City of Glass",
-     auhtor: "Paul Auster",
-   },
- ];
+export const typeDefs = readFileSync("./schema/schema.graphql", {encoding: "utf-8"});
 
- export const typeDefs = `
-
- #graphql
-
- type Book {
-    name:String 
-    author:String 
- }
-
- type Query {
- 	books: [Book]
- }
-
- `;
 
 const server = new ApolloServer({
   typeDefs,
